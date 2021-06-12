@@ -67,6 +67,9 @@
             this.tmrRejoin = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tmrAnswer = new System.Windows.Forms.Timer(this.components);
+            this.txtChatspam = new System.Windows.Forms.TextBox();
+            this.chkChatspam = new System.Windows.Forms.CheckBox();
+            this.tmrChatspam = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.clientGroup.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -82,6 +85,7 @@
             this.txtCode.Size = new System.Drawing.Size(207, 33);
             this.txtCode.TabIndex = 0;
             this.txtCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCode.TextChanged += new System.EventHandler(this.txtCode_TextChanged);
             // 
             // label1
             // 
@@ -193,7 +197,7 @@
             this.groupBox2.Controls.Add(this.btnJoin);
             this.groupBox2.Location = new System.Drawing.Point(17, 167);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(339, 502);
+            this.groupBox2.Size = new System.Drawing.Size(339, 347);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Actions";
@@ -340,7 +344,7 @@
             this.btnSkip.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSkip.Location = new System.Drawing.Point(6, 105);
             this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(362, 36);
+            this.btnSkip.Size = new System.Drawing.Size(327, 36);
             this.btnSkip.TabIndex = 9;
             this.btnSkip.Text = "Skip";
             this.btnSkip.UseVisualStyleBackColor = true;
@@ -351,7 +355,7 @@
             this.btnHint.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHint.Location = new System.Drawing.Point(6, 63);
             this.btnHint.Name = "btnHint";
-            this.btnHint.Size = new System.Drawing.Size(362, 36);
+            this.btnHint.Size = new System.Drawing.Size(327, 36);
             this.btnHint.TabIndex = 8;
             this.btnHint.Text = "Hint";
             this.btnHint.UseVisualStyleBackColor = true;
@@ -362,7 +366,7 @@
             this.btnAnswer.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnswer.Location = new System.Drawing.Point(6, 21);
             this.btnAnswer.Name = "btnAnswer";
-            this.btnAnswer.Size = new System.Drawing.Size(362, 36);
+            this.btnAnswer.Size = new System.Drawing.Size(327, 36);
             this.btnAnswer.TabIndex = 7;
             this.btnAnswer.Text = "Get Answer";
             this.btnAnswer.UseVisualStyleBackColor = true;
@@ -387,13 +391,15 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.chkChatspam);
+            this.groupBox3.Controls.Add(this.txtChatspam);
             this.groupBox3.Controls.Add(this.chkAutoAnswer);
             this.groupBox3.Controls.Add(this.chkAutoRejoin);
             this.groupBox3.Controls.Add(this.chkAutoSkip);
             this.groupBox3.Controls.Add(this.chkAutoReport);
             this.groupBox3.Location = new System.Drawing.Point(362, 48);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(374, 113);
+            this.groupBox3.Size = new System.Drawing.Size(374, 195);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Bot";
@@ -466,9 +472,9 @@
             this.groupBox4.Controls.Add(this.btnAnswer);
             this.groupBox4.Controls.Add(this.btnHint);
             this.groupBox4.Controls.Add(this.btnSkip);
-            this.groupBox4.Location = new System.Drawing.Point(362, 167);
+            this.groupBox4.Location = new System.Drawing.Point(17, 520);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(374, 152);
+            this.groupBox4.Size = new System.Drawing.Size(339, 149);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Drawer Tools";
@@ -477,6 +483,32 @@
             // 
             this.tmrAnswer.Interval = 10000;
             this.tmrAnswer.Tick += new System.EventHandler(this.tmrAnswer_Tick);
+            // 
+            // txtChatspam
+            // 
+            this.txtChatspam.Font = new System.Drawing.Font("Roboto", 16F);
+            this.txtChatspam.Location = new System.Drawing.Point(30, 152);
+            this.txtChatspam.Name = "txtChatspam";
+            this.txtChatspam.Size = new System.Drawing.Size(268, 33);
+            this.txtChatspam.TabIndex = 19;
+            this.txtChatspam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // chkChatspam
+            // 
+            this.chkChatspam.AutoSize = true;
+            this.chkChatspam.Font = new System.Drawing.Font("Roboto", 14F);
+            this.chkChatspam.Location = new System.Drawing.Point(30, 119);
+            this.chkChatspam.Name = "chkChatspam";
+            this.chkChatspam.Size = new System.Drawing.Size(177, 27);
+            this.chkChatspam.TabIndex = 20;
+            this.chkChatspam.Text = "Enable Chatspam";
+            this.chkChatspam.UseVisualStyleBackColor = true;
+            this.chkChatspam.CheckedChanged += new System.EventHandler(this.chkChatspam_CheckedChanged);
+            // 
+            // tmrChatspam
+            // 
+            this.tmrChatspam.Interval = 10000;
+            this.tmrChatspam.Tick += new System.EventHandler(this.tmrChatspam_Tick);
             // 
             // MainWindow
             // 
@@ -549,6 +581,9 @@
         private System.Windows.Forms.Button btnLeaveSingle;
         private System.Windows.Forms.CheckBox chkAutoAnswer;
         private System.Windows.Forms.Timer tmrAnswer;
+        private System.Windows.Forms.CheckBox chkChatspam;
+        private System.Windows.Forms.TextBox txtChatspam;
+        private System.Windows.Forms.Timer tmrChatspam;
     }
 }
 

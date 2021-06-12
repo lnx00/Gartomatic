@@ -277,9 +277,16 @@ namespace Gartomatic
 
         private void btnSendChat_Click(object sender, EventArgs e)
         {
+            SendChatAll(txtChat.Text);
+        }
+
+        private void SendChatAll(string pMessage)
+        {
+            Random rnd = new Random();
+
             foreach (Bot bot in _bots)
             {
-                bot.SendChat(txtChat.Text);
+                bot.SendChat(pMessage + " " + rnd.Next(10, 99));
             }
         }
 
@@ -318,6 +325,25 @@ namespace Gartomatic
                     bot.SendAnswer(bAnswer);
                 }
             }
+        }
+
+        /* Strip URL from RoomID */
+        private void txtCode_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCode.Text.Contains("https://gartic.io/"))
+            {
+                txtCode.Text = txtCode.Text.Replace("https://gartic.io/", "");
+            }
+        }
+
+        private void chkChatspam_CheckedChanged(object sender, EventArgs e)
+        {
+            tmrChatspam.Enabled = chkChatspam.Checked;
+        }
+
+        private void tmrChatspam_Tick(object sender, EventArgs e)
+        {
+            SendChatAll(txtChatspam.Text);
         }
     }
 }
