@@ -33,29 +33,45 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAddClient = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.numAvatar = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnInvade = new System.Windows.Forms.Button();
             this.btnRemoveAllClients = new System.Windows.Forms.Button();
             this.btnRemoveClient = new System.Windows.Forms.Button();
             this.clientGroup = new System.Windows.Forms.GroupBox();
             this.listClients = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSendChat = new System.Windows.Forms.Button();
+            this.btnLeaveSingle = new System.Windows.Forms.Button();
+            this.btnJoinSingle = new System.Windows.Forms.Button();
+            this.btnSendAnswer = new System.Windows.Forms.Button();
+            this.txtChat = new System.Windows.Forms.TextBox();
+            this.btnClearBots = new System.Windows.Forms.Button();
+            this.txtAnswer = new System.Windows.Forms.TextBox();
             this.txtKickUser = new System.Windows.Forms.TextBox();
-            this.btnSkip = new System.Windows.Forms.Button();
-            this.btnHint = new System.Windows.Forms.Button();
-            this.btnAnswer = new System.Windows.Forms.Button();
             this.btnKick = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnReport = new System.Windows.Forms.Button();
             this.btnLeave = new System.Windows.Forms.Button();
             this.btnJoin = new System.Windows.Forms.Button();
+            this.btnSkip = new System.Windows.Forms.Button();
+            this.btnHint = new System.Windows.Forms.Button();
+            this.btnAnswer = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.tmrUpdateList = new System.Windows.Forms.Timer(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkAutoAnswer = new System.Windows.Forms.CheckBox();
+            this.chkAutoRejoin = new System.Windows.Forms.CheckBox();
+            this.chkAutoSkip = new System.Windows.Forms.CheckBox();
+            this.chkAutoReport = new System.Windows.Forms.CheckBox();
+            this.tmrReport = new System.Windows.Forms.Timer(this.components);
+            this.tmrSkip = new System.Windows.Forms.Timer(this.components);
+            this.tmrRejoin = new System.Windows.Forms.Timer(this.components);
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tmrAnswer = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numAvatar)).BeginInit();
             this.clientGroup.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCode
@@ -90,51 +106,16 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.numAvatar);
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnInvade);
             this.groupBox1.Controls.Add(this.btnRemoveAllClients);
             this.groupBox1.Controls.Add(this.btnRemoveClient);
             this.groupBox1.Controls.Add(this.btnAddClient);
-            this.groupBox1.Location = new System.Drawing.Point(17, 67);
+            this.groupBox1.Location = new System.Drawing.Point(17, 48);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(339, 146);
+            this.groupBox1.Size = new System.Drawing.Size(339, 113);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Client";
-            // 
-            // numAvatar
-            // 
-            this.numAvatar.Font = new System.Drawing.Font("Roboto", 16F);
-            this.numAvatar.Location = new System.Drawing.Point(102, 102);
-            this.numAvatar.Maximum = new decimal(new int[] {
-            37,
-            0,
-            0,
-            0});
-            this.numAvatar.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numAvatar.Name = "numAvatar";
-            this.numAvatar.Size = new System.Drawing.Size(231, 33);
-            this.numAvatar.TabIndex = 11;
-            this.numAvatar.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Roboto", 14F);
-            this.label3.Location = new System.Drawing.Point(6, 106);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 23);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Avatar-ID:";
             // 
             // btnInvade
             // 
@@ -175,9 +156,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.clientGroup.Controls.Add(this.listClients);
-            this.clientGroup.Location = new System.Drawing.Point(742, 12);
+            this.clientGroup.Location = new System.Drawing.Point(742, 48);
             this.clientGroup.Name = "clientGroup";
-            this.clientGroup.Size = new System.Drawing.Size(510, 657);
+            this.clientGroup.Size = new System.Drawing.Size(510, 621);
             this.clientGroup.TabIndex = 4;
             this.clientGroup.TabStop = false;
             this.clientGroup.Text = "Clients";
@@ -190,28 +171,106 @@
             this.listClients.ItemHeight = 19;
             this.listClients.Location = new System.Drawing.Point(3, 18);
             this.listClients.Name = "listClients";
-            this.listClients.Size = new System.Drawing.Size(504, 636);
+            this.listClients.Size = new System.Drawing.Size(504, 600);
             this.listClients.TabIndex = 0;
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox2.Controls.Add(this.btnSendChat);
+            this.groupBox2.Controls.Add(this.btnLeaveSingle);
+            this.groupBox2.Controls.Add(this.btnJoinSingle);
+            this.groupBox2.Controls.Add(this.btnSendAnswer);
+            this.groupBox2.Controls.Add(this.txtChat);
+            this.groupBox2.Controls.Add(this.btnClearBots);
+            this.groupBox2.Controls.Add(this.txtAnswer);
             this.groupBox2.Controls.Add(this.txtKickUser);
-            this.groupBox2.Controls.Add(this.btnSkip);
-            this.groupBox2.Controls.Add(this.btnHint);
-            this.groupBox2.Controls.Add(this.btnAnswer);
             this.groupBox2.Controls.Add(this.btnKick);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.btnReport);
             this.groupBox2.Controls.Add(this.btnLeave);
             this.groupBox2.Controls.Add(this.btnJoin);
-            this.groupBox2.Location = new System.Drawing.Point(17, 219);
+            this.groupBox2.Location = new System.Drawing.Point(17, 167);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(339, 450);
+            this.groupBox2.Size = new System.Drawing.Size(339, 502);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Actions";
+            // 
+            // btnSendChat
+            // 
+            this.btnSendChat.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSendChat.Location = new System.Drawing.Point(237, 266);
+            this.btnSendChat.Name = "btnSendChat";
+            this.btnSendChat.Size = new System.Drawing.Size(96, 33);
+            this.btnSendChat.TabIndex = 13;
+            this.btnSendChat.Text = "Chat";
+            this.btnSendChat.UseVisualStyleBackColor = true;
+            this.btnSendChat.Click += new System.EventHandler(this.btnSendChat_Click);
+            // 
+            // btnLeaveSingle
+            // 
+            this.btnLeaveSingle.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLeaveSingle.Location = new System.Drawing.Point(171, 63);
+            this.btnLeaveSingle.Name = "btnLeaveSingle";
+            this.btnLeaveSingle.Size = new System.Drawing.Size(162, 36);
+            this.btnLeaveSingle.TabIndex = 18;
+            this.btnLeaveSingle.Text = "Leave";
+            this.btnLeaveSingle.UseVisualStyleBackColor = true;
+            this.btnLeaveSingle.Click += new System.EventHandler(this.btnLeaveSingle_Click);
+            // 
+            // btnJoinSingle
+            // 
+            this.btnJoinSingle.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJoinSingle.Location = new System.Drawing.Point(171, 21);
+            this.btnJoinSingle.Name = "btnJoinSingle";
+            this.btnJoinSingle.Size = new System.Drawing.Size(162, 36);
+            this.btnJoinSingle.TabIndex = 17;
+            this.btnJoinSingle.Text = "Join";
+            this.btnJoinSingle.UseVisualStyleBackColor = true;
+            this.btnJoinSingle.Click += new System.EventHandler(this.btnJoinSingle_Click);
+            // 
+            // btnSendAnswer
+            // 
+            this.btnSendAnswer.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSendAnswer.Location = new System.Drawing.Point(237, 305);
+            this.btnSendAnswer.Name = "btnSendAnswer";
+            this.btnSendAnswer.Size = new System.Drawing.Size(96, 33);
+            this.btnSendAnswer.TabIndex = 15;
+            this.btnSendAnswer.Text = "Answer";
+            this.btnSendAnswer.UseVisualStyleBackColor = true;
+            this.btnSendAnswer.Click += new System.EventHandler(this.btnSendAnswer_Click);
+            // 
+            // txtChat
+            // 
+            this.txtChat.Font = new System.Drawing.Font("Roboto", 16F);
+            this.txtChat.Location = new System.Drawing.Point(6, 266);
+            this.txtChat.Name = "txtChat";
+            this.txtChat.Size = new System.Drawing.Size(225, 33);
+            this.txtChat.TabIndex = 12;
+            this.txtChat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnClearBots
+            // 
+            this.btnClearBots.Enabled = false;
+            this.btnClearBots.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearBots.Location = new System.Drawing.Point(6, 224);
+            this.btnClearBots.Name = "btnClearBots";
+            this.btnClearBots.Size = new System.Drawing.Size(327, 36);
+            this.btnClearBots.TabIndex = 11;
+            this.btnClearBots.Text = "Clear Unused Bots";
+            this.btnClearBots.UseVisualStyleBackColor = true;
+            this.btnClearBots.Click += new System.EventHandler(this.btnClearBots_Click);
+            // 
+            // txtAnswer
+            // 
+            this.txtAnswer.Font = new System.Drawing.Font("Roboto", 16F);
+            this.txtAnswer.Location = new System.Drawing.Point(6, 305);
+            this.txtAnswer.Name = "txtAnswer";
+            this.txtAnswer.Size = new System.Drawing.Size(225, 33);
+            this.txtAnswer.TabIndex = 14;
+            this.txtAnswer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtKickUser
             // 
@@ -221,39 +280,6 @@
             this.txtKickUser.Size = new System.Drawing.Size(268, 33);
             this.txtKickUser.TabIndex = 5;
             this.txtKickUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnSkip
-            // 
-            this.btnSkip.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSkip.Location = new System.Drawing.Point(171, 266);
-            this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(162, 36);
-            this.btnSkip.TabIndex = 9;
-            this.btnSkip.Text = "Skip";
-            this.btnSkip.UseVisualStyleBackColor = true;
-            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
-            // 
-            // btnHint
-            // 
-            this.btnHint.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHint.Location = new System.Drawing.Point(6, 266);
-            this.btnHint.Name = "btnHint";
-            this.btnHint.Size = new System.Drawing.Size(162, 36);
-            this.btnHint.TabIndex = 8;
-            this.btnHint.Text = "Hint";
-            this.btnHint.UseVisualStyleBackColor = true;
-            this.btnHint.Click += new System.EventHandler(this.btnHint_Click);
-            // 
-            // btnAnswer
-            // 
-            this.btnAnswer.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnswer.Location = new System.Drawing.Point(6, 224);
-            this.btnAnswer.Name = "btnAnswer";
-            this.btnAnswer.Size = new System.Drawing.Size(327, 36);
-            this.btnAnswer.TabIndex = 7;
-            this.btnAnswer.Text = "Get Answer";
-            this.btnAnswer.UseVisualStyleBackColor = true;
-            this.btnAnswer.Click += new System.EventHandler(this.btnAnswer_Click);
             // 
             // btnKick
             // 
@@ -292,9 +318,9 @@
             this.btnLeave.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLeave.Location = new System.Drawing.Point(6, 63);
             this.btnLeave.Name = "btnLeave";
-            this.btnLeave.Size = new System.Drawing.Size(327, 36);
+            this.btnLeave.Size = new System.Drawing.Size(162, 36);
             this.btnLeave.TabIndex = 3;
-            this.btnLeave.Text = "Leave";
+            this.btnLeave.Text = "Leave All";
             this.btnLeave.UseVisualStyleBackColor = true;
             this.btnLeave.Click += new System.EventHandler(this.btnLeave_Click);
             // 
@@ -303,18 +329,51 @@
             this.btnJoin.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJoin.Location = new System.Drawing.Point(6, 21);
             this.btnJoin.Name = "btnJoin";
-            this.btnJoin.Size = new System.Drawing.Size(327, 36);
+            this.btnJoin.Size = new System.Drawing.Size(162, 36);
             this.btnJoin.TabIndex = 2;
-            this.btnJoin.Text = "Join";
+            this.btnJoin.Text = "Join All";
             this.btnJoin.UseVisualStyleBackColor = true;
             this.btnJoin.Click += new System.EventHandler(this.btnJoin_Click);
+            // 
+            // btnSkip
+            // 
+            this.btnSkip.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSkip.Location = new System.Drawing.Point(6, 105);
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.Size = new System.Drawing.Size(362, 36);
+            this.btnSkip.TabIndex = 9;
+            this.btnSkip.Text = "Skip";
+            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
+            // 
+            // btnHint
+            // 
+            this.btnHint.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHint.Location = new System.Drawing.Point(6, 63);
+            this.btnHint.Name = "btnHint";
+            this.btnHint.Size = new System.Drawing.Size(362, 36);
+            this.btnHint.TabIndex = 8;
+            this.btnHint.Text = "Hint";
+            this.btnHint.UseVisualStyleBackColor = true;
+            this.btnHint.Click += new System.EventHandler(this.btnHint_Click);
+            // 
+            // btnAnswer
+            // 
+            this.btnAnswer.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnswer.Location = new System.Drawing.Point(6, 21);
+            this.btnAnswer.Name = "btnAnswer";
+            this.btnAnswer.Size = new System.Drawing.Size(362, 36);
+            this.btnAnswer.TabIndex = 7;
+            this.btnAnswer.Text = "Get Answer";
+            this.btnAnswer.UseVisualStyleBackColor = true;
+            this.btnAnswer.Click += new System.EventHandler(this.btnAnswer_Click);
             // 
             // btnRefresh
             // 
             this.btnRefresh.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.Location = new System.Drawing.Point(638, 30);
+            this.btnRefresh.Location = new System.Drawing.Point(745, 6);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(101, 36);
+            this.btnRefresh.Size = new System.Drawing.Size(504, 36);
             this.btnRefresh.TabIndex = 10;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -326,11 +385,106 @@
             this.tmrUpdateList.Interval = 5000;
             this.tmrUpdateList.Tick += new System.EventHandler(this.tmrUpdateList_Tick);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chkAutoAnswer);
+            this.groupBox3.Controls.Add(this.chkAutoRejoin);
+            this.groupBox3.Controls.Add(this.chkAutoSkip);
+            this.groupBox3.Controls.Add(this.chkAutoReport);
+            this.groupBox3.Location = new System.Drawing.Point(362, 48);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(374, 113);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Bot";
+            // 
+            // chkAutoAnswer
+            // 
+            this.chkAutoAnswer.AutoSize = true;
+            this.chkAutoAnswer.Font = new System.Drawing.Font("Roboto", 14F);
+            this.chkAutoAnswer.Location = new System.Drawing.Point(213, 70);
+            this.chkAutoAnswer.Name = "chkAutoAnswer";
+            this.chkAutoAnswer.Size = new System.Drawing.Size(135, 27);
+            this.chkAutoAnswer.TabIndex = 3;
+            this.chkAutoAnswer.Text = "Auto Answer";
+            this.chkAutoAnswer.UseVisualStyleBackColor = true;
+            this.chkAutoAnswer.CheckedChanged += new System.EventHandler(this.chkAutoAnswer_CheckedChanged);
+            // 
+            // chkAutoRejoin
+            // 
+            this.chkAutoRejoin.AutoSize = true;
+            this.chkAutoRejoin.Font = new System.Drawing.Font("Roboto", 14F);
+            this.chkAutoRejoin.Location = new System.Drawing.Point(30, 70);
+            this.chkAutoRejoin.Name = "chkAutoRejoin";
+            this.chkAutoRejoin.Size = new System.Drawing.Size(126, 27);
+            this.chkAutoRejoin.TabIndex = 2;
+            this.chkAutoRejoin.Text = "Auto Rejoin";
+            this.chkAutoRejoin.UseVisualStyleBackColor = true;
+            this.chkAutoRejoin.CheckedChanged += new System.EventHandler(this.chkAutoRejoin_CheckedChanged);
+            // 
+            // chkAutoSkip
+            // 
+            this.chkAutoSkip.AutoSize = true;
+            this.chkAutoSkip.Font = new System.Drawing.Font("Roboto", 14F);
+            this.chkAutoSkip.Location = new System.Drawing.Point(213, 28);
+            this.chkAutoSkip.Name = "chkAutoSkip";
+            this.chkAutoSkip.Size = new System.Drawing.Size(110, 27);
+            this.chkAutoSkip.TabIndex = 1;
+            this.chkAutoSkip.Text = "Auto Skip";
+            this.chkAutoSkip.UseVisualStyleBackColor = true;
+            this.chkAutoSkip.CheckedChanged += new System.EventHandler(this.chkAutoSkip_CheckedChanged);
+            // 
+            // chkAutoReport
+            // 
+            this.chkAutoReport.AutoSize = true;
+            this.chkAutoReport.Font = new System.Drawing.Font("Roboto", 14F);
+            this.chkAutoReport.Location = new System.Drawing.Point(30, 28);
+            this.chkAutoReport.Name = "chkAutoReport";
+            this.chkAutoReport.Size = new System.Drawing.Size(129, 27);
+            this.chkAutoReport.TabIndex = 0;
+            this.chkAutoReport.Text = "Auto Report";
+            this.chkAutoReport.UseVisualStyleBackColor = true;
+            this.chkAutoReport.CheckedChanged += new System.EventHandler(this.chkAutoReport_CheckedChanged);
+            // 
+            // tmrReport
+            // 
+            this.tmrReport.Interval = 10000;
+            this.tmrReport.Tick += new System.EventHandler(this.tmrReport_Tick);
+            // 
+            // tmrSkip
+            // 
+            this.tmrSkip.Interval = 10000;
+            this.tmrSkip.Tick += new System.EventHandler(this.tmrSkip_Tick);
+            // 
+            // tmrRejoin
+            // 
+            this.tmrRejoin.Interval = 10000;
+            this.tmrRejoin.Tick += new System.EventHandler(this.tmrRejoin_Tick);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btnAnswer);
+            this.groupBox4.Controls.Add(this.btnHint);
+            this.groupBox4.Controls.Add(this.btnSkip);
+            this.groupBox4.Location = new System.Drawing.Point(362, 167);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(374, 152);
+            this.groupBox4.TabIndex = 12;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Drawer Tools";
+            // 
+            // tmrAnswer
+            // 
+            this.tmrAnswer.Interval = 10000;
+            this.tmrAnswer.Tick += new System.EventHandler(this.tmrAnswer_Tick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.clientGroup);
@@ -344,11 +498,12 @@
             this.Text = "Gartomatic";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numAvatar)).EndInit();
             this.clientGroup.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,10 +530,25 @@
         private System.Windows.Forms.Button btnRemoveAllClients;
         private System.Windows.Forms.Button btnInvade;
         private System.Windows.Forms.TextBox txtKickUser;
-        private System.Windows.Forms.NumericUpDown numAvatar;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Timer tmrUpdateList;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox chkAutoSkip;
+        private System.Windows.Forms.CheckBox chkAutoReport;
+        private System.Windows.Forms.Timer tmrReport;
+        private System.Windows.Forms.Timer tmrSkip;
+        private System.Windows.Forms.Button btnClearBots;
+        private System.Windows.Forms.CheckBox chkAutoRejoin;
+        private System.Windows.Forms.Timer tmrRejoin;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btnSendAnswer;
+        private System.Windows.Forms.TextBox txtChat;
+        private System.Windows.Forms.TextBox txtAnswer;
+        private System.Windows.Forms.Button btnSendChat;
+        private System.Windows.Forms.Button btnJoinSingle;
+        private System.Windows.Forms.Button btnLeaveSingle;
+        private System.Windows.Forms.CheckBox chkAutoAnswer;
+        private System.Windows.Forms.Timer tmrAnswer;
     }
 }
 

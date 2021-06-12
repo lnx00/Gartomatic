@@ -77,25 +77,29 @@ namespace Gartomatic
         {
             if (_bots.Count > 0)
             {
-                // _bots.Last().Dispose();
-                // _bots.RemoveAt(_bots.Count - 1);
-
                 Bot selectedBot = listClients.SelectedItem as Bot;
                 if (selectedBot != null)
                 {
                     selectedBot.Destroy();
                     _bots.Remove(selectedBot);
                 }
-
             }
         }
 
         private void btnJoin_Click(object sender, EventArgs e)
         {
+            Rejoin();
+        }
+
+        private void Rejoin()
+        {
             foreach (Bot bot in _bots)
             {
-                // TODO: Join with avatar
-                bot.Join();
+                string bStatus = bot.GetStatus();
+                if (bStatus != "Drawing" && bStatus != "In-Game")
+                {
+                    bot.Join(txtCode.Text);
+                }
             }
         }
 
@@ -103,12 +107,19 @@ namespace Gartomatic
         {
             foreach (Bot bot in _bots)
             {
-                // TODO: This is stupid. Can we do this with bot.Leave?
-                bot.Join(txtCode.Text);
+                bot.Leave();
             }
+
+            tmrRejoin.Enabled = false;
+            chkAutoRejoin.Checked = false;
         }
 
         private void btnReport_Click(object sender, EventArgs e)
+        {
+            ReportAll();
+        }
+
+        private void ReportAll()
         {
             foreach (Bot bot in _bots)
             {
@@ -134,6 +145,11 @@ namespace Gartomatic
 
         private void btnSkip_Click(object sender, EventArgs e)
         {
+            SkipAll();
+        }
+
+        private void SkipAll()
+        {
             foreach (Bot bot in _bots)
             {
                 bot.Skip();
@@ -142,17 +158,29 @@ namespace Gartomatic
 
         private void btnAnswer_Click(object sender, EventArgs e)
         {
+            string bAnswer = GetAnswer();
+            if (!String.IsNullOrEmpty(bAnswer))
+            {
+                txtAnswer.Text = bAnswer;
+                MessageBox.Show("The answer is:\n" + bAnswer);
+            } else
+            {
+                MessageBox.Show("We aren't drawing right now!");
+            }
+        }
+
+        private string GetAnswer()
+        {
             foreach (Bot bot in _bots)
             {
                 string bAnswer = bot.GetAnswer();
-                if (bAnswer != null)
+                if (!String.IsNullOrEmpty(bAnswer))
                 {
-                    MessageBox.Show("The answer is:\n" + bAnswer);
-                    return;
+                    return bAnswer;
                 }
             }
 
-            MessageBox.Show("We aren't drawing right now!");
+            return null;
         }
 
         private void btnRemoveAllClients_Click(object sender, EventArgs e)
@@ -164,11 +192,13 @@ namespace Gartomatic
             }
         }
 
-        private void btnInvade_Click(object sender, EventArgs e)
+        /* Invade a lobby with 10 bots */
+        private async void btnInvade_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < 10; i++)
             {
                 AddClient();
+                await Task.Delay(120);
             }
         }
 
@@ -187,6 +217,107 @@ namespace Gartomatic
         {
             listClients.DrawMode = DrawMode.OwnerDrawFixed;
             listClients.DrawMode = DrawMode.Normal;
+        }
+
+        private void chkAutoReport_CheckedChanged(object sender, EventArgs e)
+        {
+            tmrReport.Enabled = chkAutoReport.Checked;
+        }
+
+        private void chkAutoSkip_CheckedChanged(object sender, EventArgs e)
+        {
+            tmrSkip.Enabled = chkAutoSkip.Checked;
+        }
+
+        private void tmrReport_Tick(object sender, EventArgs e)
+        {
+            foreach (Bot bot in _bots)
+            {
+                if (bot.GetStatus() == "Drawing")
+                {
+                    return;
+                }
+            }
+
+            ReportAll();
+        }
+
+        private void tmrSkip_Tick(object sender, EventArgs e)
+        {
+            SkipAll();
+        }
+
+        private void btnClearBots_Click(object sender, EventArgs e)
+        {
+            bool isDone = false;
+            int currentBot = 0;
+
+            while (!isDone)
+            {
+                if (currentBot > _bots.Count) { isDone = true; break; }
+
+                string bStatus = _bots[currentBot].GetStatus();
+                if (bStatus != "Drawing" && bStatus != "In-Game")
+                {
+                    _bots[currentBot].Destroy();
+                    _bots.RemoveAt(currentBot);
+                }
+            }
+        }
+
+        private void chkAutoRejoin_CheckedChanged(object sender, EventArgs e)
+        {
+            tmrRejoin.Enabled = chkAutoRejoin.Checked;
+        }
+
+        private void tmrRejoin_Tick(object sender, EventArgs e)
+        {
+            Rejoin();
+        }
+
+        private void btnSendChat_Click(object sender, EventArgs e)
+        {
+            foreach (Bot bot in _bots)
+            {
+                bot.SendChat(txtChat.Text);
+            }
+        }
+
+        private void btnSendAnswer_Click(object sender, EventArgs e)
+        {
+            foreach (Bot bot in _bots)
+            {
+                bot.SendAnswer(txtAnswer.Text);
+            }
+        }
+
+        private void btnJoinSingle_Click(object sender, EventArgs e)
+        {
+            Bot selectedBot = listClients.SelectedItem as Bot;
+            selectedBot.Join(txtCode.Text);
+        }
+
+        private void btnLeaveSingle_Click(object sender, EventArgs e)
+        {
+            Bot selectedBot = listClients.SelectedItem as Bot;
+            selectedBot.Leave();
+        }
+
+        private void chkAutoAnswer_CheckedChanged(object sender, EventArgs e)
+        {
+            tmrAnswer.Enabled = chkAutoAnswer.Checked;
+        }
+
+        private void tmrAnswer_Tick(object sender, EventArgs e)
+        {
+            string bAnswer = GetAnswer();
+            if (!String.IsNullOrEmpty(bAnswer))
+            {
+                foreach (Bot bot in _bots)
+                {
+                    bot.SendAnswer(bAnswer);
+                }
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Gartomatic
         /* JS BRIDGE */
         public void Join()
         {
-            _browser.ExecuteScriptAsync("GarticHook.ReJoin()");
+            _browser.ExecuteScriptAsync("GarticHook.ReJoin();");
         }
 
         public void Join(string pCode)
@@ -39,37 +39,47 @@ namespace Gartomatic
 
         public void Join(string pName = "", int pAvatar = 0)
         {
-            _browser.ExecuteScriptAsync("GarticHook.Join(" + Utils.EscapeString(pName) + ", " + pAvatar + ")");
+            _browser.ExecuteScriptAsync("GarticHook.Join('" + Utils.EscapeString(pName) + "', '" + pAvatar + "');");
         }
 
         public void Leave()
         {
-            _browser.ExecuteScriptAsync("GarticHook.Leave()");
+            _browser.ExecuteScriptAsync("GarticHook.Leave();");
         }
 
         public void Report()
         {
-            _browser.ExecuteScriptAsync("GarticHook.Report()");
+            _browser.ExecuteScriptAsync("GarticHook.Report();");
         }
 
         public void Kick(string pUser)
         {
-            _browser.ExecuteScriptAsync("GarticHook.Kick(" + Utils.EscapeString(pUser) + ")");
+            _browser.ExecuteScriptAsync(String.Format("GarticHook.Kick('{0}');", Utils.EscapeString(pUser)));
         }
 
         public void Hint()
         {
-            _browser.ExecuteScriptAsync("GarticHook.Hint()");
+            _browser.ExecuteScriptAsync("GarticHook.Hint();");
         }
 
         public void Skip()
         {
-            _browser.ExecuteScriptAsync("GarticHook.Skip()");
+            _browser.ExecuteScriptAsync("GarticHook.Skip();");
+        }
+
+        public void SendChat(string pMessage)
+        {
+            _browser.ExecuteScriptAsync(String.Format("GarticHook.SendChat('{0}');", pMessage));
+        }
+
+        public void SendAnswer(string pAnswer)
+        {
+            _browser.ExecuteScriptAsync(String.Format("GarticHook.SendAnswer('{0}');", pAnswer));
         }
 
         public string GetAnswer()
         {
-            var rs = _browser.EvaluateScriptAsync("GarticHook.GetAnswer()");
+            var rs = _browser.EvaluateScriptAsync("GarticHook.GetAnswer();");
             if (rs.Result.Success)
             {
                 string result = rs.Result.Result.ToString();
@@ -81,7 +91,7 @@ namespace Gartomatic
 
         public string GetStatus()
         {
-            var rs = _browser.EvaluateScriptAsync("GarticHook.GetStatus()");
+            var rs = _browser.EvaluateScriptAsync("GarticHook.GetStatus();");
             if (rs.Result.Success)
             {
                 string result = rs.Result.Result.ToString();
@@ -93,7 +103,7 @@ namespace Gartomatic
 
         public string GetName()
         {
-            var rs = _browser.EvaluateScriptAsync("GarticHook.GetName()");
+            var rs = _browser.EvaluateScriptAsync("GarticHook.GetName();");
             if (rs.Result.Success)
             {
                 string result = rs.Result.Result.ToString();
@@ -114,6 +124,11 @@ namespace Gartomatic
             _browser = pBrowser;
         }
 
+        public int GetID()
+        {
+            return _ID;
+        }
+
         /* OTHER */
 
         public void Destroy()
@@ -126,10 +141,11 @@ namespace Gartomatic
         {
             try
             {
-                string retVal = "Room: " + GetRoom() + " | "  + GetStatus() + " | " + GetName();
+                string retVal = "[" + GetID() + "] Room: " + GetRoom() + " | "  + GetStatus() + " | " + GetName();
                 return retVal;
             } catch (Exception) { }
-            return "Room: " + GetRoom();
+
+            return "[" + GetID() + "] Room: " + GetRoom() + " | Unknown | Unknown";
         }
 
     }
