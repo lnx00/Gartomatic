@@ -22,7 +22,8 @@ namespace Gartomatic
 
         public string GetRoom()
         {
-            return _browser.Address.Replace("https://gartic.io/", "");
+            string bRoom = _browser.Address.Replace("https://gartic.io/", "");
+            return (String.IsNullOrEmpty(bRoom)) ? "Unknown" : bRoom;
         }
 
         /* JS BRIDGE */
@@ -37,9 +38,10 @@ namespace Gartomatic
             _browser.ExecuteScriptAsyncWhenPageLoaded(MainWindow.GarticHook);
         }
 
-        public void Join(string pName = "", int pAvatar = 0)
+        public void JoinQueue()
         {
-            _browser.ExecuteScriptAsync("GarticHook.Join('" + Utils.EscapeString(pName) + "', '" + pAvatar + "');");
+            _browser.Load("https://gartic.io/");
+            _browser.ExecuteScriptAsyncWhenPageLoaded(MainWindow.GarticHook);
         }
 
         public void Leave()
@@ -141,11 +143,11 @@ namespace Gartomatic
         {
             try
             {
-                string retVal = "[" + GetID() + "] Room: " + GetRoom() + " | "  + GetStatus() + " | " + GetName();
+                string retVal = "[" + GetID() + "]\t" + GetRoom() + "\t"  + GetStatus() + "\t" + GetName();
                 return retVal;
             } catch (Exception) { }
 
-            return "[" + GetID() + "] Room: " + GetRoom() + " | Unknown | Unknown";
+            return "[" + GetID() + "]\t" + GetRoom() + "\tError\tError";
         }
 
     }

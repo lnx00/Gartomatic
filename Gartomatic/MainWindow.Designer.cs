@@ -58,6 +58,8 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.tmrUpdateList = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkChatspam = new System.Windows.Forms.CheckBox();
+            this.txtChatspam = new System.Windows.Forms.TextBox();
             this.chkAutoAnswer = new System.Windows.Forms.CheckBox();
             this.chkAutoRejoin = new System.Windows.Forms.CheckBox();
             this.chkAutoSkip = new System.Windows.Forms.CheckBox();
@@ -67,14 +69,21 @@
             this.tmrRejoin = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tmrAnswer = new System.Windows.Forms.Timer(this.components);
-            this.txtChatspam = new System.Windows.Forms.TextBox();
-            this.chkChatspam = new System.Windows.Forms.CheckBox();
             this.tmrChatspam = new System.Windows.Forms.Timer(this.components);
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnAutobotRemove = new System.Windows.Forms.Button();
+            this.btnAutobotAdd = new System.Windows.Forms.Button();
+            this.txtAutobotRoom = new System.Windows.Forms.TextBox();
+            this.listAutobotRooms = new System.Windows.Forms.ListBox();
+            this.chkAutobotQueue = new System.Windows.Forms.CheckBox();
+            this.chkAutobot = new System.Windows.Forms.CheckBox();
+            this.tmrAutobot = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.clientGroup.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCode
@@ -257,7 +266,6 @@
             // 
             // btnClearBots
             // 
-            this.btnClearBots.Enabled = false;
             this.btnClearBots.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearBots.Location = new System.Drawing.Point(6, 224);
             this.btnClearBots.Name = "btnClearBots";
@@ -399,10 +407,31 @@
             this.groupBox3.Controls.Add(this.chkAutoReport);
             this.groupBox3.Location = new System.Drawing.Point(362, 48);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(374, 195);
+            this.groupBox3.Size = new System.Drawing.Size(374, 199);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Bot";
+            // 
+            // chkChatspam
+            // 
+            this.chkChatspam.AutoSize = true;
+            this.chkChatspam.Font = new System.Drawing.Font("Roboto", 14F);
+            this.chkChatspam.Location = new System.Drawing.Point(30, 119);
+            this.chkChatspam.Name = "chkChatspam";
+            this.chkChatspam.Size = new System.Drawing.Size(177, 27);
+            this.chkChatspam.TabIndex = 20;
+            this.chkChatspam.Text = "Enable Chatspam";
+            this.chkChatspam.UseVisualStyleBackColor = true;
+            this.chkChatspam.CheckedChanged += new System.EventHandler(this.chkChatspam_CheckedChanged);
+            // 
+            // txtChatspam
+            // 
+            this.txtChatspam.Font = new System.Drawing.Font("Roboto", 16F);
+            this.txtChatspam.Location = new System.Drawing.Point(30, 152);
+            this.txtChatspam.Name = "txtChatspam";
+            this.txtChatspam.Size = new System.Drawing.Size(268, 33);
+            this.txtChatspam.TabIndex = 19;
+            this.txtChatspam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // chkAutoAnswer
             // 
@@ -484,37 +513,103 @@
             this.tmrAnswer.Interval = 10000;
             this.tmrAnswer.Tick += new System.EventHandler(this.tmrAnswer_Tick);
             // 
-            // txtChatspam
-            // 
-            this.txtChatspam.Font = new System.Drawing.Font("Roboto", 16F);
-            this.txtChatspam.Location = new System.Drawing.Point(30, 152);
-            this.txtChatspam.Name = "txtChatspam";
-            this.txtChatspam.Size = new System.Drawing.Size(268, 33);
-            this.txtChatspam.TabIndex = 19;
-            this.txtChatspam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // chkChatspam
-            // 
-            this.chkChatspam.AutoSize = true;
-            this.chkChatspam.Font = new System.Drawing.Font("Roboto", 14F);
-            this.chkChatspam.Location = new System.Drawing.Point(30, 119);
-            this.chkChatspam.Name = "chkChatspam";
-            this.chkChatspam.Size = new System.Drawing.Size(177, 27);
-            this.chkChatspam.TabIndex = 20;
-            this.chkChatspam.Text = "Enable Chatspam";
-            this.chkChatspam.UseVisualStyleBackColor = true;
-            this.chkChatspam.CheckedChanged += new System.EventHandler(this.chkChatspam_CheckedChanged);
-            // 
             // tmrChatspam
             // 
             this.tmrChatspam.Interval = 10000;
             this.tmrChatspam.Tick += new System.EventHandler(this.tmrChatspam_Tick);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.btnAutobotRemove);
+            this.groupBox5.Controls.Add(this.btnAutobotAdd);
+            this.groupBox5.Controls.Add(this.txtAutobotRoom);
+            this.groupBox5.Controls.Add(this.listAutobotRooms);
+            this.groupBox5.Controls.Add(this.chkAutobotQueue);
+            this.groupBox5.Controls.Add(this.chkAutobot);
+            this.groupBox5.Location = new System.Drawing.Point(362, 253);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(374, 296);
+            this.groupBox5.TabIndex = 13;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Auto-Bot";
+            // 
+            // btnAutobotRemove
+            // 
+            this.btnAutobotRemove.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAutobotRemove.Location = new System.Drawing.Point(303, 242);
+            this.btnAutobotRemove.Name = "btnAutobotRemove";
+            this.btnAutobotRemove.Size = new System.Drawing.Size(33, 33);
+            this.btnAutobotRemove.TabIndex = 24;
+            this.btnAutobotRemove.Text = "-";
+            this.btnAutobotRemove.UseVisualStyleBackColor = true;
+            this.btnAutobotRemove.Click += new System.EventHandler(this.btnAutobotRemove_Click);
+            // 
+            // btnAutobotAdd
+            // 
+            this.btnAutobotAdd.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAutobotAdd.Location = new System.Drawing.Point(264, 242);
+            this.btnAutobotAdd.Name = "btnAutobotAdd";
+            this.btnAutobotAdd.Size = new System.Drawing.Size(33, 33);
+            this.btnAutobotAdd.TabIndex = 19;
+            this.btnAutobotAdd.Text = "+";
+            this.btnAutobotAdd.UseVisualStyleBackColor = true;
+            this.btnAutobotAdd.Click += new System.EventHandler(this.btnAutobotAdd_Click);
+            // 
+            // txtAutobotRoom
+            // 
+            this.txtAutobotRoom.Font = new System.Drawing.Font("Roboto", 16F);
+            this.txtAutobotRoom.Location = new System.Drawing.Point(30, 242);
+            this.txtAutobotRoom.Name = "txtAutobotRoom";
+            this.txtAutobotRoom.Size = new System.Drawing.Size(228, 33);
+            this.txtAutobotRoom.TabIndex = 21;
+            this.txtAutobotRoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // listAutobotRooms
+            // 
+            this.listAutobotRooms.FormattingEnabled = true;
+            this.listAutobotRooms.ItemHeight = 14;
+            this.listAutobotRooms.Location = new System.Drawing.Point(30, 92);
+            this.listAutobotRooms.Name = "listAutobotRooms";
+            this.listAutobotRooms.Size = new System.Drawing.Size(318, 144);
+            this.listAutobotRooms.TabIndex = 23;
+            // 
+            // chkAutobotQueue
+            // 
+            this.chkAutobotQueue.AutoSize = true;
+            this.chkAutobotQueue.Checked = true;
+            this.chkAutobotQueue.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutobotQueue.Font = new System.Drawing.Font("Roboto", 14F);
+            this.chkAutobotQueue.Location = new System.Drawing.Point(30, 59);
+            this.chkAutobotQueue.Name = "chkAutobotQueue";
+            this.chkAutobotQueue.Size = new System.Drawing.Size(119, 27);
+            this.chkAutobotQueue.TabIndex = 22;
+            this.chkAutobotQueue.Text = "Use Queue";
+            this.chkAutobotQueue.UseVisualStyleBackColor = true;
+            this.chkAutobotQueue.CheckedChanged += new System.EventHandler(this.chkAutobotQueue_CheckedChanged);
+            // 
+            // chkAutobot
+            // 
+            this.chkAutobot.AutoSize = true;
+            this.chkAutobot.Font = new System.Drawing.Font("Roboto", 14F);
+            this.chkAutobot.Location = new System.Drawing.Point(30, 26);
+            this.chkAutobot.Name = "chkAutobot";
+            this.chkAutobot.Size = new System.Drawing.Size(189, 27);
+            this.chkAutobot.TabIndex = 21;
+            this.chkAutobot.Text = "Enable Automation";
+            this.chkAutobot.UseVisualStyleBackColor = true;
+            this.chkAutobot.CheckedChanged += new System.EventHandler(this.chkAutobot_CheckedChanged);
+            // 
+            // tmrAutobot
+            // 
+            this.tmrAutobot.Interval = 60000;
+            this.tmrAutobot.Tick += new System.EventHandler(this.tmrAutobot_Tick);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnRefresh);
@@ -536,6 +631,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -584,6 +681,14 @@
         private System.Windows.Forms.CheckBox chkChatspam;
         private System.Windows.Forms.TextBox txtChatspam;
         private System.Windows.Forms.Timer tmrChatspam;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox chkAutobot;
+        private System.Windows.Forms.Timer tmrAutobot;
+        private System.Windows.Forms.CheckBox chkAutobotQueue;
+        private System.Windows.Forms.Button btnAutobotRemove;
+        private System.Windows.Forms.Button btnAutobotAdd;
+        private System.Windows.Forms.TextBox txtAutobotRoom;
+        private System.Windows.Forms.ListBox listAutobotRooms;
     }
 }
 

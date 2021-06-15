@@ -89,6 +89,9 @@ namespace Gartomatic
         private void btnJoin_Click(object sender, EventArgs e)
         {
             Rejoin();
+
+            tmrRejoin.Enabled = true;
+            chkAutoRejoin.Checked = true;
         }
 
         private void Rejoin()
@@ -233,7 +236,7 @@ namespace Gartomatic
         {
             foreach (Bot bot in _bots)
             {
-                if (bot.GetStatus() == "Drawing")
+                if (bot.GetStatus() == "Drawing" && !chkAutobot.Checked)
                 {
                     return;
                 }
@@ -247,14 +250,14 @@ namespace Gartomatic
             SkipAll();
         }
 
+        /* Removes all bots that are no In-Game */
         private void btnClearBots_Click(object sender, EventArgs e)
         {
-            bool isDone = false;
             int currentBot = 0;
 
-            while (!isDone)
+            while (true)
             {
-                if (currentBot > _bots.Count) { isDone = true; break; }
+                if (currentBot >= _bots.Count) { break; }
 
                 string bStatus = _bots[currentBot].GetStatus();
                 if (bStatus != "Drawing" && bStatus != "In-Game")
@@ -262,6 +265,8 @@ namespace Gartomatic
                     _bots[currentBot].Destroy();
                     _bots.RemoveAt(currentBot);
                 }
+
+                currentBot++;
             }
         }
 
@@ -344,6 +349,76 @@ namespace Gartomatic
         private void tmrChatspam_Tick(object sender, EventArgs e)
         {
             SendChatAll(txtChatspam.Text);
+        }
+
+        private void chkAutobot_CheckedChanged(object sender, EventArgs e)
+        {
+            tmrAutobot.Enabled = chkAutobot.Checked;
+
+            if (chkAutobot.Checked)
+            {
+                tmrReport.Enabled = true;
+                // tmrAnswer.Enabled = true;
+
+                chkAutoReport.Checked = true;
+                // chkAutoAnswer.Checked = true;
+            }
+        }
+
+        private void tmrAutobot_Tick(object sender, EventArgs e)
+        {
+            foreach (Bot bot in _bots)
+            {
+                if (chkAutobotQueue.Checked)
+                {
+                    bot.JoinQueue();
+                } else
+                {
+                    if (listAutobotRooms.SelectedIndex > 0 && (listAutobotRooms.SelectedIndex < listAutobotRooms.Items.Count - 1))
+                    {
+                        listAutobotRooms.SelectedIndex++;
+                    } else
+                    {
+                        listAutobotRooms.SelectedIndex = 0;
+                    }
+                    txtCode.Text = listAutobotRooms.SelectedItem.ToString();
+                    bot.Join(txtCode.Text);
+
+                    tmrRejoin.Enabled = true;
+                    chkAutoRejoin.Checked = true;
+                }
+            }
+        }
+
+        private void btnAutobotAdd_Click(object sender, EventArgs e)
+        {
+            if (!listAutobotRooms.Items.Contains(txtAutobotRoom.Text))
+            {
+                listAutobotRooms.Items.Add(txtAutobotRoom.Text);
+            }
+        }
+
+        private void btnAutobotRemove_Click(object sender, EventArgs e)
+        {
+            if (listAutobotRooms.SelectedItem != null)
+            {
+                listAutobotRooms.Items.Remove(listAutobotRooms.SelectedItem);
+            }
+        }
+
+        private void chkAutobotQueue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!chkAutobotQueue.Checked)
+            {
+                if (listAutobotRooms.Items.Count < 1)
+                {
+                    chkAutobotQueue.Checked = true;
+                    MessageBox.Show("Please add at least one room first.");
+                } else
+                {
+                    listAutobotRooms.SelectedIndex = 0;
+                }
+            }
         }
     }
 }

@@ -31,7 +31,8 @@ let GarticHook = (() => {
             $("#popUp > div.content > div.buttons > button").click();
         }
 
-        $("#screens > div > div.content.join > div.actions > button").click();
+        $("#screens > div > div.content.join > div.actions > button").click(); // Join Room
+        $("#screens > div > div.content.home > div.anonymus > div.actions > button.btYellowBig.ic-playHome").click(); // Join Queue
     }
 
     let ReJoin = function () {
